@@ -73,7 +73,7 @@ export const AdjustmentStep = ({
           Total: {total}% {total === 100 ? "✓" : "(ajuste para 100%)"}
         </p>
         <p className="text-sm text-muted-foreground mt-4 max-w-lg mx-auto">
-          Recomendamos usar 50% a 60% para Custos Fixos, 10% para Investimento, 5% a 10% para Sonhos/Metas e 20% a 35% para Gastos livres, mas podem ser ajustados conforme sua necessidade.
+          Recomendamos usar de 50% a 60% para Custos Fixos, 10% a 20% para Investimento, 15% a 25% para Sonhos/Metas e 15% a 30% para Gastos livres, mas podem ser ajustados conforme sua necessidade, respeitando o limite total de 100%.
         </p>
       </div>
 
