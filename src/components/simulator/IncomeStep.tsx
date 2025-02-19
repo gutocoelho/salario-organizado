@@ -22,7 +22,7 @@ export const IncomeStep = ({
     onIncomeChange(parsed);
   };
 
-  const displayValue = income ? formatCurrency(Number(income)) : "";
+  const displayValue = income ? formatCurrency(Number(income) * 100) : "";
 
   return (
     <motion.div
@@ -43,6 +43,7 @@ export const IncomeStep = ({
           value={displayValue}
           onChange={handleChange}
           placeholder="R$ 0,00"
+          inputMode="numeric"
           className="text-2xl text-center h-16"
         />
       </div>
@@ -50,7 +51,7 @@ export const IncomeStep = ({
         <Button variant="outline" onClick={onBack}>
           Voltar
         </Button>
-        <Button onClick={onNext} disabled={!income}>
+        <Button onClick={onNext} disabled={!income || income === "0"}>
           Continuar
         </Button>
       </div>
