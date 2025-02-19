@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import type { Result } from "@/types/simulator";
@@ -35,6 +34,9 @@ export const ResultsStep = ({ results, onReset, onBack }: ResultsStepProps) => {
         <h2 className="text-3xl font-bold mt-4">
           Sua distribuição de renda recomendada
         </h2>
+        <p className="text-lg mt-2 text-muted-foreground">
+          Parabéns por planejar suas finanças! Com pequenas decisões, grandes mudanças acontecem.
+        </p>
         <p className="text-muted-foreground mt-2">
           Renda Total: {formatCurrency(total)}
         </p>
@@ -94,6 +96,10 @@ export const ResultsStep = ({ results, onReset, onBack }: ResultsStepProps) => {
         </div>
       </div>
 
+      <div className="bg-muted/50 p-6 rounded-lg text-muted-foreground text-sm leading-relaxed">
+        Ao dividir seu dinheiro entre essas quatro categorias, você garante que suas contas estarão pagas, seus investimentos vão crescer e ainda poderá realizar sonhos e aproveitar a vida. O planejamento financeiro não é sobre privação, mas sim sobre tomar decisões estratégicas para viver melhor hoje e no futuro.
+      </div>
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -107,8 +113,7 @@ export const ResultsStep = ({ results, onReset, onBack }: ResultsStepProps) => {
             Caminho da Liberdade Financeira
           </h3>
           <p className="text-white/90 mb-4 max-w-lg">
-            Aprenda a transformar sua relação com o dinheiro e alcance seus
-            objetivos financeiros com nosso curso completo.
+            Aprenda a transformar sua relação com o dinheiro para ter mais dinheiro sobrando todos os meses e fazer seus primeiros investimentos.
           </p>
           <Button
             variant="secondary"
@@ -120,7 +125,7 @@ export const ResultsStep = ({ results, onReset, onBack }: ResultsStepProps) => {
               )
             }
           >
-            Conhecer o curso
+            Eu quero aprender
           </Button>
         </div>
       </motion.div>

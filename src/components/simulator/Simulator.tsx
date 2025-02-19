@@ -10,7 +10,7 @@ import type { Category, Result } from "@/types/simulator";
 const defaultCategories: Category[] = [
   {
     name: "Custos Fixos",
-    percentage: 55,
+    percentage: 50,
     color: "#ea384c",
     description: "Suas despesas mensais essenciais",
   },
@@ -28,7 +28,7 @@ const defaultCategories: Category[] = [
   },
   {
     name: "Gastos Livres",
-    percentage: 15,
+    percentage: 20,
     color: "#0EA5E9",
     description: "Para que você possa viver sua vida hoje",
   },
