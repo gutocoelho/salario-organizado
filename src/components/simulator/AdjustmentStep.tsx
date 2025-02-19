@@ -73,13 +73,11 @@ export const AdjustmentStep = ({
           Total: {total}% {total === 100 ? "✓" : "(ajuste para 100%)"}
         </p>
         <p className="text-sm text-muted-foreground mt-4 max-w-lg mx-auto">
-          Os valores abaixo são os percentuais recomendados, mas podem ser ajustados conforme sua necessidade:
-          <br />
-          50% a 60% Custos Fixos, 10% Investimento, 5% a 10% Sonhos/Metas e 20% a 35% Gastos livres.
+          Recomendamos usar 50% a 60% para Custos Fixos, 10% para Investimento, 5% a 10% para Sonhos/Metas e 20% a 35% para Gastos livres, mas podem ser ajustados conforme sua necessidade.
         </p>
       </div>
 
-      <TooltipProvider>
+      <TooltipProvider delayDuration={0}>
         <div className="grid gap-6">
           {categories.map((category, index) => (
             <motion.div
@@ -95,8 +93,10 @@ export const AdjustmentStep = ({
                     {category.name}
                   </h3>
                   <Tooltip>
-                    <TooltipTrigger>
-                      <HelpCircle className="w-4 h-4 text-muted-foreground" />
+                    <TooltipTrigger asChild>
+                      <button type="button">
+                        <HelpCircle className="w-4 h-4 text-muted-foreground" />
+                      </button>
                     </TooltipTrigger>
                     <TooltipContent 
                       side="right"
