@@ -2,7 +2,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
-import { formatCurrency, parseCurrencyInput } from "@/utils/currency";
 
 interface IncomeStepProps {
   income: string;
@@ -18,11 +17,40 @@ export const IncomeStep = ({
   onBack,
 }: IncomeStepProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const parsed = parseCurrencyInput(e.target.value);
-    onIncomeChange(parsed);
+    const value = e.target.value;
+    // Remove qualquer caractere não numérico, exceto ponto e vírgula
+    const cleanValue = value.replace(/[^\d,.]/g, "");
+    
+    // Converte para um formato que possa ser convertido para número
+    const numberValue = cleanValue.replace(",", ".");
+    
+    // Verifica se é um número válido
+    if (!isNaN(Number(numberValue))) {
+      onIncomeChange(cleanValue);
+    }
   };
 
-  const displayValue = income ? formatCurrency(Number(income) * 100) : "";
+  const formatDisplayValue = (value: string) => {
+    if (!value) return "";
+    
+    // Remove todos os caracteres não numéricos, exceto ponto e vírgula
+    const cleanValue = value.replace(/[^\d,.]/g, "");
+    
+    // Formata o número para reais
+    try {
+      const number = Number(cleanValue.replace(",", "."));
+      if (!isNaN(number)) {
+        return new Intl.NumberFormat("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        }).format(number);
+      }
+    } catch (e) {
+      return value;
+    }
+    
+    return value;
+  };
 
   return (
     <motion.div
@@ -40,10 +68,10 @@ export const IncomeStep = ({
       <div className="w-full">
         <Input
           type="text"
-          value={displayValue}
+          value={formatDisplayValue(income)}
           onChange={handleChange}
           placeholder="R$ 0,00"
-          inputMode="numeric"
+          inputMode="decimal"
           className="text-2xl text-center h-16"
         />
       </div>
@@ -51,7 +79,10 @@ export const IncomeStep = ({
         <Button variant="outline" onClick={onBack}>
           Voltar
         </Button>
-        <Button onClick={onNext} disabled={!income || income === "0"}>
+        <Button 
+          onClick={onNext} 
+          disabled={!income || income === "0" || income === "0,00"}
+        >
           Continuar
         </Button>
       </div>
