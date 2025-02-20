@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import type { Result } from "@/types/simulator";
-import { formatCurrency } from "@/utils/currency";
+import { formatCurrency,formatNumber } from "@/utils/currency";
 import {
   PieChart,
   Pie,
@@ -38,7 +38,7 @@ export const ResultsStep = ({ results, onReset, onBack }: ResultsStepProps) => {
           Parabéns por planejar suas finanças! Com pequenas decisões, grandes mudanças acontecem.
         </p>
         <p className="text-muted-foreground mt-2">
-          Renda Total: {formatCurrency(total)}
+          Renda Total: { formatNumber(total)}
         </p>
       </div>
 
@@ -61,7 +61,7 @@ export const ResultsStep = ({ results, onReset, onBack }: ResultsStepProps) => {
                 ))}
               </Pie>
               <Tooltip
-                formatter={(value: number) => [formatCurrency(value), "Valor"]}
+                formatter={(value: number) => [formatNumber(value), "Valor"]}
               />
               <Legend />
             </PieChart>
@@ -89,7 +89,7 @@ export const ResultsStep = ({ results, onReset, onBack }: ResultsStepProps) => {
                 {result.description}
               </p>
               <p className="text-2xl font-bold">
-                {formatCurrency(result.value)}
+                {formatNumber(result.value)}
               </p>
             </motion.div>
           ))}
