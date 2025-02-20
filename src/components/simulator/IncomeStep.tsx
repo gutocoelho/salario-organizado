@@ -1,6 +1,5 @@
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
 
 interface IncomeStepProps {
@@ -11,17 +10,9 @@ interface IncomeStepProps {
 }
 
 export const IncomeStep = ({
-  income,
-  onIncomeChange,
   onNext,
   onBack,
 }: IncomeStepProps) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Aceita apenas números
-    const value = e.target.value.replace(/\D/g, '');
-    onIncomeChange(value);
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0, x: 100 }}
@@ -33,25 +24,16 @@ export const IncomeStep = ({
         Passo 1 de 3
       </span>
       <h2 className="text-3xl font-bold text-center">
-        Qual é a sua renda mensal?
+        Valor fixo para teste:
       </h2>
-      <div className="w-full">
-        <Input
-          type="text"
-          value={income}
-          onChange={handleChange}
-          placeholder="Digite sua renda (apenas números)"
-          className="text-2xl text-center h-16"
-        />
+      <div className="w-full text-center text-2xl font-bold">
+        R$ 2.500,00
       </div>
       <div className="flex space-x-4">
         <Button variant="outline" onClick={onBack}>
           Voltar
         </Button>
-        <Button 
-          onClick={onNext} 
-          disabled={!income || parseInt(income, 10) === 0}
-        >
+        <Button onClick={onNext}>
           Continuar
         </Button>
       </div>
