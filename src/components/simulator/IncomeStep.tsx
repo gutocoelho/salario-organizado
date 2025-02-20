@@ -16,40 +16,23 @@ export const IncomeStep = ({
   onNext,
   onBack,
 }: IncomeStepProps) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    // Remove qualquer caractere não numérico, exceto ponto e vírgula
-    const cleanValue = value.replace(/[^\d,.]/g, "");
-    
-    // Converte para um formato que possa ser convertido para número
-    const numberValue = cleanValue.replace(",", ".");
-    
-    // Verifica se é um número válido
-    if (!isNaN(Number(numberValue))) {
-      onIncomeChange(cleanValue);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value.replace(/\D/g, '');
+    if (input === '') {
+      onIncomeChange('');
+      return;
     }
+    const numericValue = parseInt(input, 10);
+    onIncomeChange(numericValue.toString());
   };
 
-  const formatDisplayValue = (value: string) => {
-    if (!value) return "";
-    
-    // Remove todos os caracteres não numéricos, exceto ponto e vírgula
-    const cleanValue = value.replace(/[^\d,.]/g, "");
-    
-    // Formata o número para reais
-    try {
-      const number = Number(cleanValue.replace(",", "."));
-      if (!isNaN(number)) {
-        return new Intl.NumberFormat("pt-BR", {
-          style: "currency",
-          currency: "BRL",
-        }).format(number);
-      }
-    } catch (e) {
-      return value;
-    }
-    
-    return value;
+  const formatValue = (value: string): string => {
+    if (!value) return '';
+    const numericValue = parseInt(value, 10);
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    }).format(numericValue);
   };
 
   return (
@@ -68,10 +51,9 @@ export const IncomeStep = ({
       <div className="w-full">
         <Input
           type="text"
-          value={formatDisplayValue(income)}
-          onChange={handleChange}
+          value={formatValue(income)}
+          onChange={handleInputChange}
           placeholder="R$ 0,00"
-          inputMode="decimal"
           className="text-2xl text-center h-16"
         />
       </div>
@@ -81,7 +63,7 @@ export const IncomeStep = ({
         </Button>
         <Button 
           onClick={onNext} 
-          disabled={!income || income === "0" || income === "0,00"}
+          disabled={!income || parseInt(income, 10) === 0}
         >
           Continuar
         </Button>
