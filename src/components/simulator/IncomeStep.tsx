@@ -16,23 +16,10 @@ export const IncomeStep = ({
   onNext,
   onBack,
 }: IncomeStepProps) => {
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const input = e.target.value.replace(/\D/g, '');
-    if (input === '') {
-      onIncomeChange('');
-      return;
-    }
-    const numericValue = parseInt(input, 10);
-    onIncomeChange(numericValue.toString());
-  };
-
-  const formatValue = (value: string): string => {
-    if (!value) return '';
-    const numericValue = parseInt(value, 10);
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-    }).format(numericValue);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Aceita apenas números
+    const value = e.target.value.replace(/\D/g, '');
+    onIncomeChange(value);
   };
 
   return (
@@ -51,9 +38,9 @@ export const IncomeStep = ({
       <div className="w-full">
         <Input
           type="text"
-          value={formatValue(income)}
-          onChange={handleInputChange}
-          placeholder="R$ 0,00"
+          value={income}
+          onChange={handleChange}
+          placeholder="Digite sua renda (apenas números)"
           className="text-2xl text-center h-16"
         />
       </div>
