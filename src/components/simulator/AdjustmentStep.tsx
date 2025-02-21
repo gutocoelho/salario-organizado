@@ -4,7 +4,7 @@ import { Slider } from "@/components/ui/slider";
 import { motion } from "framer-motion";
 import type { Category } from "@/types/simulator";
 import { toast } from "sonner";
-import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { HelpCircle } from "lucide-react";
 
 interface AdjustmentStepProps {
@@ -77,51 +77,48 @@ export const AdjustmentStep = ({
         </p>
       </div>
 
-      <TooltipProvider delayDuration={0}>
-        <div className="grid gap-6">
-          {categories.map((category, index) => (
-            <motion.div
-              key={category.name}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="p-6 rounded-lg bg-card border"
-            >
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2">
-                  <h3 className="font-semibold" style={{ color: category.color }}>
-                    {category.name}
-                  </h3>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <button type="button">
-                        <HelpCircle className="w-4 h-4 text-muted-foreground" />
-                      </button>
-                    </TooltipTrigger>
-                    <TooltipContent 
-                      side="right"
-                      className="max-w-sm whitespace-pre-wrap p-4"
-                    >
+      <div className="grid gap-6">
+        {categories.map((category, index) => (
+          <motion.div
+            key={category.name}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1 }}
+            className="p-6 rounded-lg bg-card border"
+          >
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <h3 className="font-semibold" style={{ color: category.color }}>
+                  {category.name}
+                </h3>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <button type="button">
+                      <HelpCircle className="w-4 h-4 text-muted-foreground" />
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-sm">
+                    <div className="p-4 whitespace-pre-wrap">
                       {tooltipContent[category.name]}
-                    </TooltipContent>
-                  </Tooltip>
-                </div>
-                <span className="text-sm font-medium">{category.percentage}%</span>
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </div>
-              <p className="text-sm text-muted-foreground mb-4">
-                {category.description}
-              </p>
-              <Slider
-                value={[category.percentage]}
-                onValueChange={(value) => onCategoryChange(index, value[0])}
-                max={100}
-                step={1}
-                className="mt-2"
-              />
-            </motion.div>
-          ))}
-        </div>
-      </TooltipProvider>
+              <span className="text-sm font-medium">{category.percentage}%</span>
+            </div>
+            <p className="text-sm text-muted-foreground mb-4">
+              {category.description}
+            </p>
+            <Slider
+              value={[category.percentage]}
+              onValueChange={(value) => onCategoryChange(index, value[0])}
+              max={100}
+              step={1}
+              className="mt-2"
+            />
+          </motion.div>
+        ))}
+      </div>
 
       <div className="flex justify-center space-x-4 mt-8">
         <Button variant="outline" onClick={onBack}>

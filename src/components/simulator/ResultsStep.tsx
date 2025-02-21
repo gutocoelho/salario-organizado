@@ -1,7 +1,8 @@
+
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import type { Result } from "@/types/simulator";
-import { formatCurrency,formatNumber } from "@/utils/currency";
+import { formatNumber } from "@/utils/currency";
 import {
   PieChart,
   Pie,
@@ -17,6 +18,18 @@ interface ResultsStepProps {
   onBack: () => void;
 }
 
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-white p-2 border rounded-lg shadow-lg">
+        <p className="font-semibold">{payload[0].payload.name}</p>
+        <p>{formatNumber(payload[0].value)}</p>
+      </div>
+    );
+  }
+  return null;
+};
+
 export const ResultsStep = ({ results, onReset, onBack }: ResultsStepProps) => {
   const total = results.reduce((sum, result) => sum + result.value, 0);
 
@@ -25,7 +38,8 @@ export const ResultsStep = ({ results, onReset, onBack }: ResultsStepProps) => {
       initial={{ opacity: 0, x: 100 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -100 }}
-      className="max-w-4xl mx-auto p-6 space-y-8"
+      viewport={{ once: true }}
+      className="max-w-4xl mx-auto p-6 space-y-6 md:space-y-8"
     >
       <div className="text-center">
         <span className="px-3 py-1 text-sm font-semibold bg-category-discretionary/10 text-category-discretionary rounded-full">
@@ -38,12 +52,12 @@ export const ResultsStep = ({ results, onReset, onBack }: ResultsStepProps) => {
           Parabéns por planejar suas finanças! Com pequenas decisões, grandes mudanças acontecem.
         </p>
         <p className="text-muted-foreground mt-2">
-          Renda Total: { formatNumber(total)}
+          Renda Total: {formatNumber(total)}
         </p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-8">
-        <div className="h-[400px]">
+        <div className="h-[300px] md:h-[400px] -mt-4">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
@@ -60,9 +74,7 @@ export const ResultsStep = ({ results, onReset, onBack }: ResultsStepProps) => {
                   <Cell key={entry.name} fill={entry.color} />
                 ))}
               </Pie>
-              <Tooltip
-                formatter={(value: number) => [formatNumber(value), "Valor"]}
-              />
+              <Tooltip content={<CustomTooltip />} />
               <Legend />
             </PieChart>
           </ResponsiveContainer>
