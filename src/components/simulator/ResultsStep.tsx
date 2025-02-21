@@ -10,6 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
+  TooltipProps,
 } from "recharts";
 
 interface ResultsStepProps {
@@ -18,7 +19,15 @@ interface ResultsStepProps {
   onBack: () => void;
 }
 
-const CustomTooltip = ({ active, payload }) => {
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: Array<{
+    value: number;
+    payload: Result;
+  }>;
+}
+
+const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-white p-2 border rounded-lg shadow-lg">
