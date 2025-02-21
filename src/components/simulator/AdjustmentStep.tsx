@@ -15,30 +15,38 @@ interface AdjustmentStepProps {
 }
 
 const tooltipContent = {
-  "Custos Fixos": `Custos Fixos – Sua base financeira
-Essa categoria cobre suas despesas mensais essenciais, ou seja, tudo o que é necessário para manter sua vida funcionando. 
+  "Custos Fixos": {
+    title: "Custos Fixos – Sua base financeira",
+    content: `Essa categoria cobre suas despesas mensais essenciais, ou seja, tudo o que é necessário para manter sua vida funcionando. 
 
 Aqui entram aluguel ou prestação do imóvel, contas de luz, água, internet e telefone, plano de saúde, supermercado, transporte (combustível, passagem de ônibus/metrô) e parcelas de financiamentos ou dívidas essenciais. 
 
-O ideal é que esses custos não ultrapassem 50% do seu orçamento, garantindo espaço para outras áreas importantes.`,
-  "Investimentos": `Investimentos – Construindo sua liberdade financeira
-Essa parte do seu dinheiro é destinada a fazer seu patrimônio crescer e garantir uma aposentadoria confortável. 
+O ideal é que esses custos não ultrapassem 50% do seu orçamento, garantindo espaço para outras áreas importantes.`
+  },
+  "Investimentos": {
+    title: "Investimentos – Construindo sua liberdade financeira",
+    content: `Essa parte do seu dinheiro é destinada a fazer seu patrimônio crescer e garantir uma aposentadoria confortável. 
 
 Inclui aportes em renda fixa (Tesouro Direto, CDBs, LCI, LCA), ações e fundos imobiliários, previdência privada (se fizer sentido para você) e até criptomoedas, caso esteja alinhado ao seu perfil. 
 
-Quanto antes você começar, mais fácil será alcançar a liberdade financeira, pois a constância nos aportes é o que realmente faz a diferença.`,
-  "Sonhos/Metas": `Sonhos/Metas – Para você realizar o que deseja
-Aqui fica o dinheiro reservado para objetivos de curto e médio prazo, além da sua reserva de emergência para imprevistos. 
+Quanto antes você começar, mais fácil será alcançar a liberdade financeira, pois a constância nos aportes é o que realmente faz a diferença.`
+  },
+  "Sonhos/Metas": {
+    title: "Sonhos/Metas – Para você realizar o que deseja",
+    content: `Aqui fica o dinheiro reservado para objetivos de curto e médio prazo, além da sua reserva de emergência para imprevistos. 
 
 Isso inclui a construção da reserva financeira (equivalente a pelo menos seis meses de despesas), viagens, entrada para um carro ou imóvel, cursos e capacitações. 
 
-Para metas de curto prazo, o ideal é investir em opções mais seguras, como CDBs e fundos DI, garantindo liquidez sem comprometer seus planos.`,
-  "Gastos Livres": `Gastos Livres – Para viver o presente sem culpa
-Essa é a parte do orçamento que você pode gastar como quiser, sem afetar seu planejamento financeiro. 
+Para metas de curto prazo, o ideal é investir em opções mais seguras, como CDBs e fundos DI, garantindo liquidez sem comprometer seus planos.`
+  },
+  "Gastos Livres": {
+    title: "Gastos Livres – Para viver o presente sem culpa",
+    content: `Essa é a parte do orçamento que você pode gastar como quiser, sem afetar seu planejamento financeiro. 
 
 Entra aqui tudo o que envolve lazer e bem-estar, como restaurantes, assinaturas de streaming, compras por prazer, passeios e hobbies. 
 
-Ter um limite definido para essa categoria evita exageros e permite que você aproveite o presente sem comprometer sua segurança financeira no futuro.`,
+Ter um limite definido para essa categoria evita exageros e permite que você aproveite o presente sem comprometer sua segurança financeira no futuro.`
+  },
 };
 
 export const AdjustmentStep = ({
@@ -98,8 +106,13 @@ export const AdjustmentStep = ({
                     </button>
                   </DialogTrigger>
                   <DialogContent className="max-w-sm">
-                    <div className="p-4 whitespace-pre-wrap">
-                      {tooltipContent[category.name]}
+                    <div className="p-4 space-y-4">
+                      <h4 className="text-lg font-bold">
+                        {tooltipContent[category.name].title}
+                      </h4>
+                      <div className="whitespace-pre-wrap text-muted-foreground">
+                        {tooltipContent[category.name].content}
+                      </div>
                     </div>
                   </DialogContent>
                 </Dialog>
