@@ -62,6 +62,8 @@ export const AdjustmentStep = ({
       toast.error("O total deve ser 100%");
       return;
     }
+    // Scroll to top before transitioning
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     onNext();
   };
 

@@ -9,8 +9,8 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
-  TooltipProps,
 } from "recharts";
+import { useEffect } from "react";
 
 interface ResultsStepProps {
   results: Result[];
@@ -42,19 +42,22 @@ const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
 export const ResultsStep = ({ results, onReset, onBack }: ResultsStepProps) => {
   const total = results.reduce((sum, result) => sum + result.value, 0);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
   return (
     <motion.div
-      initial={{ opacity: 0, x: 100, y: -100 }}
-      animate={{ opacity: 1, x: 0, y: 0 }}
-      exit={{ opacity: 0, x: -100 }}
-      viewport={{ once: true }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
       className="max-w-4xl mx-auto p-6 space-y-6 md:space-y-8"
     >
-      <div className="text-center">
+      <div className="text-center" id="results-top">
         <span className="px-3 py-1 text-sm font-semibold bg-category-discretionary/10 text-category-discretionary rounded-full">
           Resultados
         </span>
-        <h2 className="text-3xl font-bold mt-4" id="results-title">
+        <h2 className="text-3xl font-bold mt-4">
           Sua distribuição de renda recomendada
         </h2>
         <p className="text-lg mt-2 text-muted-foreground">
@@ -66,7 +69,7 @@ export const ResultsStep = ({ results, onReset, onBack }: ResultsStepProps) => {
       </div>
 
       <div className="grid md:grid-cols-2 gap-8">
-        <div className="h-[300px] md:h-[400px] -mt-8">
+        <div className="h-[300px] md:h-[400px]">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
