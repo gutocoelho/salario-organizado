@@ -18,7 +18,7 @@ export const WelcomeStep = ({ onNext }: WelcomeStepProps) => {
         Planejamento Financeiro
       </span>
       <h1 className="text-4xl font-bold tracking-tight">
-        Salário Zen
+        Salário Organizado
         <span className="block text-2xl mt-2 text-muted-foreground">
           Simulador de Distribuição de Renda
         </span>
